@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовый трекер</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Финансовый трекер</h1>
+        </header>
+
+        <div class="summary-cards">
+            <div class="card balance-card">
+                <h3>Текущий баланс</h3>
+                <p id="balance">0 ₽</p>
+            </div>
+            <div class="card income-card">
+                <h3>Доходы</h3>
+                <p id="total-income">0 ₽</p>
+            </div>
+            <div class="card expense-card">
+                <h3>Расходы</h3>
+                <p id="total-expense">0 ₽</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-layout">
+            <div class="top-categories">
+                <h2>Топ расходов по категориям</h2>
+                <div id="top-categories-chart"></div>
+            </div>
+
+            <div class="transactions-section">
+                <div class="controls">
+                    <button id="add-transaction" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Добавить операцию
+                    </button>
+                    
+                    <div class="filter-controls">
+                        <select id="filter-type" class="form-control">
+                            <option value="all">Все операции</option>
+                            <option value="income">Доходы</option>
+                            <option value="expense">Расходы</option>
+                        </select>
+                        
+                        <select id="filter-category" class="form-control">
+                            <option value="all">Все категории</option>
+                        </select>
+                        
+                        <select id="sort-by" class="form-control">
+                            <option value="date-desc">Сначала новые</option>
+                            <option value="date-asc">Сначала старые</option>
+                            <option value="amount-desc">По сумме (убыв.)</option>
+                            <option value="amount-asc">По сумме (возр.)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="transactions">
+                    <h2>История транзакций</h2>
+                    <table id="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Категория</th>
+                                <th>Сумма</th>
+                                <th>Комментарий</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="transaction-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Добавить операцию</h2>
+            <form id="transaction-form">
+                <input type="hidden" id="edit-id">
+                
+                <div class="form-group">
+                    <label for="type">Тип операции</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="type" value="income" checked>
+                            <span>Доход</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="type" value="expense">
+                            <span>Расход</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Категория</label>
+                    <select id="category" name="category" class="form-control" required>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Сумма</label>
+                    <input type="number" id="amount" name="amount" class="form-control" min="0.01" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Дата</label>
+                    <input type="date" id="date" name="date" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">Комментарий</label>
+                    <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+    <script src="./js/app.js"></script>
+</body>
+</html>
